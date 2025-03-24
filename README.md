@@ -1,6 +1,6 @@
-# [🛒 Savat Funksiyalari](https://github.com/)
+# [🛒 Savat Funksiyalari](https://github.com/abdulloyev/web-telegram-bot/blob/main/src/App.jsx)
 
-- *Loyihada mahsulotlar savatini boshqarish uchun quyidagi funksiyalar ishlatiladi:*
+- _Loyihada mahsulotlar savatini boshqarish uchun quyidagi funksiyalar ishlatiladi:_
 
 ## 1. ✅ Savatga Mahsulot Qo'shish - `onAddItem()`
 
