@@ -1,0 +1,9 @@
+.heading {
+  text-align: center;
+}
+
+.cards_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
