@@ -1,6 +1,6 @@
 import "./App.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getData } from "./constants/db";
 import Card from "./components/card/card";
 import Cart from "./components/payme-cart/cart";
@@ -9,9 +9,15 @@ const App = () => {
   // Courses contained dataBase
   const courses = getData();
 
+  // Telegram dataBase
+  const telegram = window.Telegram.WebApp;
+
+  useEffect(() => {
+    telegram.ready();
+  });
+
   // useState
   const [cartItems, setCartItems] = useState([]);
-  console.log(cartItems);
 
   // Add Item
   const onAddItem = item => {
@@ -45,11 +51,17 @@ const App = () => {
     }
   };
 
+  // Checkout
+  const onCheckout = () => {
+    telegram.MainButton.text = "Sotib olish :)";
+    telegram.MainButton.show();
+  };
+
   return (
     <>
       <h1 className="heading">Sammi kurslari</h1>
       {/* Payme Cart */}
-      <Cart cartItems={cartItems} onCheckout={() => {}} />
+      <Cart cartItems={cartItems} onCheckout={onCheckout} />
 
       {/* Cards */}
       <div className="cards_container">
