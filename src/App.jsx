@@ -49,7 +49,7 @@ const App = () => {
     <>
       <h1 className="heading">Sammi kurslari</h1>
       {/* Payme Cart */}
-      <Cart cartItems={[]} onCheckout={() => {}} />
+      <Cart cartItems={cartItems} onCheckout={() => {}} />
 
       {/* Cards */}
       <div className="cards_container">

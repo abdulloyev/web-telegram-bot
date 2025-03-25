@@ -1,12 +1,31 @@
+import { useState } from "react";
 import Button from "../button/button";
 import "./card.css";
+import { memo } from "react";
 
 const Card = props => {
   const { course, onAddItem, onRemoveItem } = props;
 
+  // useState
+  const [count, setCount] = useState(0);
+
+  // Handlers
+  const handleIncrement = () => {
+    setCount(prev => prev + 1);
+    onAddItem(course);
+  };
+
+  // Memoization
+  const handleDecrement = () => {
+    setCount(prev => prev - 1);
+    onRemoveItem(course);
+  };
+
   return (
     <div className="card">
-      <span className="card_badge">1</span>
+      <span className={`${count !== 0 ? "card_badge" : "card_badge_hiddin"}`}>
+        {count}
+      </span>
 
       <div className="image_container">
         <img
@@ -30,15 +49,17 @@ const Card = props => {
       <div className="hr"></div>
 
       <div className="btn_container">
-        <Button title={"+"} onClick={() => onAddItem(course)} type={"add"} />
-        <Button
-          title={"-"}
-          type={"remove"}
-          onClick={() => onRemoveItem(course)}
-        />
+        <Button title={"+"} onClick={handleIncrement} type={"add"} />
+        {count !== 0 && (
+          <Button
+            title={"-"}
+            type={count !== 0 ? "remove" : true}
+            onClick={handleDecrement}
+          />
+        )}
       </div>
     </div>
   );
 };
 
-export default Card;
+export default memo(Card);
