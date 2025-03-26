@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     telegram.ready();
-  });
+  }, []);
 
   // useState
   const [cartItems, setCartItems] = useState([]);
@@ -54,12 +54,14 @@ const App = () => {
 
   // Checkout
   const onCheckout = () => {
+    window.alert("MainButton chiqarildi");
     telegram.MainButton.text = "Sotib olish :)";
     telegram.MainButton.show();
   };
 
   // onSendData
   const onSendData = useCallback(() => {
+    window.alert("Send data");
     telegram.sendData(JSON.stringify(cartItems));
   }, [cartItems]);
 
