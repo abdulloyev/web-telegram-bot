@@ -19,7 +19,21 @@ const bootstrap = () => {
         chatId,
         `Xush kelibsiz <b>${firstName}</b>!
         `,
-        { parse_mode: "HTML" }
+        {
+          parse_mode: "HTML",
+          reply_markup: {
+            keyboard: [
+              [
+                {
+                  text: "Kurslarni ko'rish 🧑‍💻",
+                  web_app: {
+                    url: "https://abu-web-bot.vercel.app/",
+                  },
+                },
+              ],
+            ],
+          },
+        }
       );
     }
   });
