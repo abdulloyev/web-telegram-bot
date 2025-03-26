@@ -11,8 +11,6 @@ const bootstrap = () => {
     const text = msg.text;
     const firstName = msg.chat.first_name;
 
-    console.log(msg.chat);
-
     // /start command
     if (text === "/start") {
       await bot.sendMessage(
@@ -35,6 +33,10 @@ const bootstrap = () => {
           },
         }
       );
+
+      if (msg.web_app_data?.data) {
+        console.log("Web app data:", msg.web_app_data?.data);
+      }
     }
   });
 };

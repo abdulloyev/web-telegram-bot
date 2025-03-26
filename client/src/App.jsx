@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 
 import React, { useCallback, useEffect, useState } from "react";
@@ -60,7 +61,7 @@ const App = () => {
   // onSendData
   const onSendData = useCallback(() => {
     telegram.sendData(JSON.stringify(cartItems));
-  }, [cartItems, telegram]);
+  }, [cartItems]);
 
   useEffect(() => {
     telegram.onEvent("mainButtonClicked", onSendData);
@@ -68,7 +69,7 @@ const App = () => {
     return () => {
       telegram.offEvent("mainButtonClicked", onSendData);
     };
-  }, [onSendData, telegram]);
+  }, [onSendData]);
 
   return (
     <>
