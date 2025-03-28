@@ -45,6 +45,25 @@ const bootstrap = () => {
       await bot.sendMessage(chatId, "Kerakli bo'limni tanlang 👇");
     }
 
+    // /courses command - Inline keyboard
+    if (text === "/courses") {
+      await bot.sendChatAction(chatId, "typing");
+      await bot.sendMessage(chatId, "Kerakli kurslarni o'zingiz tanlang 👇", {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "Kurslarni ko'rish",
+                web_app: {
+                  url: "https://abu-telegram-bot.vercel.app",
+                },
+              },
+            ],
+          ],
+        },
+      });
+    }
+
     if (msg.web_app_data?.data) {
       try {
         const data = JSON.parse(msg.web_app_data?.data);
