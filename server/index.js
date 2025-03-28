@@ -10,6 +10,11 @@ const bootstrap = () => {
     const chatId = msg.chat.id;
     const text = msg.text;
     const firstName = msg.chat.first_name;
+    // My commands
+    bot.setMyCommands([
+      { command: "/start", description: "Kurslar haqida ma'limot" },
+      { command: "/courses", description: "Kurslarni ko'rish" },
+    ]);
 
     // /start command
     if (text === "/start") {
