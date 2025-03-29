@@ -19,6 +19,8 @@ const bootstrap = () => {
     const chatId = msg.chat.id;
     const text = msg.text;
     const firstName = msg.chat.first_name;
+    const botInfo = await bot.getMe();
+
     // My commands
     bot.setMyCommands([
       { command: "/start", description: "Kurslar haqida ma'limot" },
@@ -109,7 +111,7 @@ const bootstrap = () => {
             .toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
-            })}</i>`,
+            })}</i>}`,
           {
             parse_mode: "HTML",
           }
@@ -157,12 +159,16 @@ ${products
   )
   .join("\n")}
 
-📅 Sana: ${new Date().toLocaleDateString()}
-⏰ Vaqt: ${new Date().toLocaleTimeString()}
+📅 Sana: ${new Date().toLocaleDateString("uz-UZ", {
+          timeZone: "Asia/Tashkent",
+        })}
+⏰ Vaqt: ${new Date().toLocaleTimeString("uz-UZ", {
+          timeZone: "Asia/Tashkent",
+          hour: "2-digit",
+          minute: "2-digit",
+        })} (Toshkent vaqti UTC+5)
 
-💳 <i>Yana xarid qilish uchun @${
-          bot.options.username
-        } botimizdan foydalaning!</i>`,
+💳 <i>Yana xarid qilish uchun @${botInfo.username} botimizdan foydalaning!</i>`,
         parse_mode: "HTML",
       },
     });
