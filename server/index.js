@@ -90,7 +90,7 @@ const bootstrap = () => {
           "https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png"
         );
 
-        for (item of data.products) {
+        for (item of data) {
           await bot.sendMessage(
             chatId,
             `<b>${item.title}</b> - <i>${item.quantity} x ${item.price} => ${
@@ -104,7 +104,7 @@ const bootstrap = () => {
 
         await bot.sendMessage(
           chatId,
-          `💵 <b>Umumiy narx</b> - <i>${data.products
+          `💵 <b>Umumiy narx</b> - <i>${data
             .reduce((a, c) => a + c.price * c.quantity, 0)
             .toLocaleString("en-US", {
               style: "currency",
@@ -132,20 +132,38 @@ app.post("/web-data", async (req, res) => {
     await bot.answerWebAppQuery(queryID, {
       type: "article",
       id: queryID,
-      title: "Muofaqiyatli xarid qildingiz!",
+      title: "Muvaffaqiyatli xarid qildingiz!",
       input_message_content: {
-        message_text: `Xaridingiz bilan tabriklaymiz! 😊
+        message_text: `🎉 <b>Xaridingiz bilan tabriklaymiz!</b> 🎉
 
-        ${products
+💰 <b>Umumiy summa:</b> ${products
           .reduce((a, c) => a + c.price * c.quantity, 0)
           .toLocaleString("en-US", {
             style: "currency",
             currency: "USD",
-          })} qiymatga ega mahsulot sotib oldingiz 🎉
+          })}
 
-          ${products
-            .map(item => `${item.title} - ${item.quantity} x ${item.price}`)
-            .join(", \n")}`,
+🛍️ <b>Sotib olingan mahsulotlar:</b>
+${products
+  .map(
+    item =>
+      `• ${item.title} - ${item.quantity} x ${item.price.toLocaleString(
+        "en-US",
+        {
+          style: "currency",
+          currency: "USD",
+        }
+      )}`
+  )
+  .join("\n")}
+
+📅 Sana: ${new Date().toLocaleDateString()}
+⏰ Vaqt: ${new Date().toLocaleTimeString()}
+
+💳 <i>Yana xarid qilish uchun @${
+          bot.options.username
+        } botimizdan foydalaning!</i>`,
+        parse_mode: "HTML",
       },
     });
     return res.status(200).json({ message: "Success" });
