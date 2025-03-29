@@ -1,7 +1,10 @@
 const TelegramBot = require("node-telegram-bot-api");
 
 // botToken
-const token = "7182918972:AAEaabxcPeRSYVH8tYv-PsJ5DsrC4jNnFwg";
+// Hosting bot token
+// const token = "7182918972:AAEaabxcPeRSYVH8tYv-PsJ5DsrC4jNnFwg";
+// Local bot token
+const token = "7495010409:AAEHGuYvzPifhy3g4P51uaKBqMA0vrvWOVo";
 
 const bot = new TelegramBot(token, { polling: true });
 
