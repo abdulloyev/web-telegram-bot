@@ -60,29 +60,28 @@ const App = () => {
 
   // onSendData
   const onSendData = useCallback(() => {
-    const queryID = telegram.initDataUnsave?.query_id;
+    const queryID = telegram.initDataUnsafe?.query_id;
 
     if (queryID) {
-      fetch("https://localhost:8000/web-data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cartItems),
-      });
-    } else {
-      telegram.sendData(
-        JSON.stringify({ products: cartItems, queryID: queryID })
+      fetch(
+        "https://web-telegram-bot-production-8086.up.railway.app/web-data",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ products: cartItems, queryID: queryID }),
+        }
       );
+    } else {
+      telegram.sendData(JSON.stringify(cartItems));
     }
   }, [cartItems]);
 
   useEffect(() => {
     telegram.onEvent("mainButtonClicked", onSendData);
 
-    return () => {
-      telegram.offEvent("mainButtonClicked", onSendData);
-    };
+    return () => telegram.offEvent("mainButtonClicked", onSendData);
   }, [onSendData]);
 
   return (

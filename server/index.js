@@ -90,7 +90,7 @@ const bootstrap = () => {
           "https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png"
         );
 
-        for (item of data) {
+        for (item of data.products) {
           await bot.sendMessage(
             chatId,
             `<b>${item.title}</b> - <i>${item.quantity} x ${item.price} => ${
@@ -104,7 +104,7 @@ const bootstrap = () => {
 
         await bot.sendMessage(
           chatId,
-          `💵 <b>Umumiy narx</b> - <i>${data
+          `💵 <b>Umumiy narx</b> - <i>${data.products
             .reduce((a, c) => a + c.price * c.quantity, 0)
             .toLocaleString("en-US", {
               style: "currency",
