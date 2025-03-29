@@ -1,12 +1,18 @@
 const TelegramBot = require("node-telegram-bot-api");
+const express = require("express");
+const cors = require("cors");
 
 // botToken
 // Hosting bot token
-// const token = "7182918972:AAEaabxcPeRSYVH8tYv-PsJ5DsrC4jNnFwg";
+const token = "7182918972:AAEaabxcPeRSYVH8tYv-PsJ5DsrC4jNnFwg";
 // Local bot token
-const token = "7495010409:AAEHGuYvzPifhy3g4P51uaKBqMA0vrvWOVo";
+// const token = "7495010409:AAEHGuYvzPifhy3g4P51uaKBqMA0vrvWOVo";
 
 const bot = new TelegramBot(token, { polling: true });
+const app = express();
+
+app.use(express.json());
+app.use(cors());
 
 const bootstrap = () => {
   bot.on("message", async msg => {
@@ -116,3 +122,39 @@ const bootstrap = () => {
 };
 
 bootstrap();
+
+// Webhook API
+app.post("/web-data", async (req, res) => {
+  const { queryID, products } = req.body;
+
+  try {
+    // Telegram bot orqali WebApp query’ga javob qaytaramiz
+    await bot.answerWebAppQuery(queryID, {
+      type: "article",
+      id: queryID,
+      title: "Muofaqiyatli xarid qildingiz!",
+      input_message_content: {
+        message_text: `Xaridingiz bilan tabriklaymiz! 😊
+
+        ${products
+          .reduce((a, c) => a + c.price * c.quantity, 0)
+          .toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })} qiymatga ega mahsulot sotib oldingiz 🎉
+
+          ${products
+            .map(item => `${item.title} - ${item.quantity} x ${item.price}`)
+            .join(", \n")}`,
+      },
+    });
+    return res.status(200).json({ message: "Success" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+// Server start
+app.listen(process.env.PORT || 8000, () =>
+  console.log("Server is running on port 8000...")
+);
