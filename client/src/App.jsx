@@ -86,7 +86,7 @@ const App = () => {
 
   return (
     <>
-      <h1 className="heading">Sammi kurslari</h1>
+      <h1 className="heading">ABUcoder kurslari</h1>
       {/* Payme Cart */}
       <Cart cartItems={cartItems} onCheckout={onCheckout} />
 
